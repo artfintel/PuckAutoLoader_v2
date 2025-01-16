@@ -1,6 +1,7 @@
 # 컴파일 결과물 제외
 *.pyc
 __pycache__/
+.gitignore
 
 # 환경 설정 제외
 venv/
