@@ -38,6 +38,7 @@ class ContainerManager:
         query += " ORDER BY name"
 
         containers = self.db_mgr.select_db(query)
+        print(containers)
         return self._create_containers(containers)
 
     def _create_containers(self, container_data):

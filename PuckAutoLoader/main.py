@@ -8,7 +8,7 @@ from PuckAutoLoader.devices.VideoProcessor import VideoProcessor
 from PuckAutoLoader.devices.Video import Video
 from PuckAutoLoader.utils.ConfigHandler import ConfigHandler
 from PuckAutoLoader.db.DBManager import DBManager
-from ui.main_ui import Main_UI
+from PuckAutoLoader.ui.main_ui import Main_UI
 
 class VideoApp(QMainWindow):
     """비디오 처리 및 UI 관리를 담당하는 메인 클래스."""
@@ -169,13 +169,10 @@ class VideoApp(QMainWindow):
         if self.input_buffer:
             if self.detected_flag == 1: # 듀어에 추가된 퍽이 있는 경우
                 if self.container_mgr.check_container(self.input_buffer):
-                    if self.container_mgr.check_location(self.input_buffer):
-                        self.container_mgr.load_container(self.input_buffer, self.loading_puck.location)
-                        self.update_label(self.ui.state_label, "등록되었습니다.", 10)
-                    else:
-                        self.update_label(self.ui.state_label, "이미 등록된 퍽입니다.", 10)
+                    self.container_mgr.load_container(self.input_buffer, self.loading_puck.location)
+                    self.update_label(self.ui.state_label, str(self.loading_puck.location_name)+" 위치에 "+str(self.input_buffer) +" 퍽이 등록되었습니다.", 10)
                 else:
-                    self.update_label(self.ui.state_label, "퍽의 이름이 잘 못되었거나 등록되지 않은 이름입니다.", 10)
+                    self.update_label(self.ui.state_label, "퍽의 이름이 잘못되었거나 등록되지 않은 이름입니다.", 10)
 
             elif self.detected_flag == -1: # 듀어에 제거된 퍽이 있는 경우
                 for puck in self.unloading_puck:

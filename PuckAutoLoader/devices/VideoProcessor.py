@@ -15,7 +15,7 @@ class VideoProcessor:
         self.dewar = Dewar()
         self.detection_box = 25
         self.offset = 10
-        self.info = False
+        self.info = True
 
     def puck_detection(self, frame):
         """
@@ -30,7 +30,6 @@ class VideoProcessor:
             puck_location.current_value = int(
                 self.calculate_average(img_gray, coord, self.detection_box)
             )
-
             if puck_location.background_value - puck_location.current_value < self.offset:
                 cv.circle(frame, coord, 40, (220, 20, 60), 2)
                 puck_location.detection_status = 0

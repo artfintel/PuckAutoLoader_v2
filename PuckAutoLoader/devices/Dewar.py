@@ -30,11 +30,12 @@ class Dewar:
         설정 파일을 업데이트하여 저장
         """
         for puck_location in self.puck_locations:
-            location_name = puck_location.location_name
-            current_value = puck_location.current_value
+            if puck_location.detection_status == 0:
+                location_name = puck_location.location_name
+                current_value = puck_location.current_value
 
-            self.config['BACKGROUND'][location_name] = str(current_value)
-            puck_location.background_value = current_value + self.background_offset
+                self.config['BACKGROUND'][location_name] = str(current_value)
+                puck_location.background_value = current_value + self.background_offset
 
         with open('utils/puck_info.ini', 'w') as config_file:
             self.config.write(config_file)
